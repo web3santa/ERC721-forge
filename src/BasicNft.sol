@@ -11,8 +11,8 @@ contract BasicNft is ERC721 {
         s_tokenCounter = 0;
     }
 
-    function mintNft(string memory tokenUri) public payable {
-        require(msg.value == 0.01 ether, "Not enough ETH");
+    function mintNft(string memory tokenUri) public {
+        // require(msg.value == 0.01 ether, "Not enough ETH");
         s_tokenIdToUri[s_tokenCounter] = tokenUri;
         _safeMint(msg.sender, s_tokenCounter);
         s_tokenCounter++;

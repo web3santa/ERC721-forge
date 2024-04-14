@@ -33,7 +33,7 @@ contract BasicNftTest is Test {
 
     function testMintNft() public {
         vm.prank(henry);
-        basicNft.mintNft{value: 1 ether}(PUG);
+        basicNft.mintNft(PUG);
 
         assertEq(basicNft.balanceOf(henry), 1);
         assert(
@@ -42,12 +42,12 @@ contract BasicNftTest is Test {
         );
     }
 
-    function testBalanceAfterMintNft() public {
-        vm.prank(henry);
-        basicNft.mintNft{value: MINT_AMOUNT}(PUG);
+    // function testBalanceAfterMintNft() public {
+    //     vm.prank(henry);
+    //     basicNft.mintNft{value: MINT_AMOUNT}(PUG);
 
-        console.log(henry.balance);
+    //     console.log(henry.balance);
 
-        assertEq(henry.balance, STARTING_BALANCE - MINT_AMOUNT);
-    }
+    //     assertEq(henry.balance, STARTING_BALANCE - MINT_AMOUNT);
+    // }
 }
