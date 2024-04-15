@@ -6,6 +6,7 @@ import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 
 contract MoodNft is ERC721 {
     error ERC721Metadata__URI_QueryFor_NonExistentToken();
+    error MoodNft__CanFlipMoodIfNotOwner();
 
     uint256 private s_tokenCounter;
     string private s_sadSvgImageUri;
@@ -31,6 +32,19 @@ contract MoodNft is ERC721 {
         _safeMint(msg.sender, s_tokenCounter);
         s_tokenIdToMood[s_tokenCounter] = Mood.HAPPY;
         s_tokenCounter++;
+    }
+
+    function flipMood(uint256 tokenId) public {
+        // we want the NFT owner to be able to change the mmod
+        if (!_isApprovedOrOwner(msg.sender, tokenId)) {
+            revert MoodNft__CanFlipMoodIfNotOwner();
+        }
+
+        if (s_tokenIdToMood[tokenId] == Mood.HAPPY) {
+            s_tokenIdToMood[tokenId] = Mood.SAD;
+        } else {
+            s_tokenIdToMood[tokenId] = Mood.HAPPY;
+        }
     }
 
     function _baseURI() internal pure override returns (string memory) {

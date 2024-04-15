@@ -8,11 +8,18 @@ import {DevOpsTools} from "lib/foundry-devops/src/DevOpsTools.sol";
 contract MintMoodNft is Script {
     function run() external {
         mintNftOnContract();
+        convertSadToHappy();
     }
 
     function mintNftOnContract() public {
         vm.startBroadcast();
         MoodNft(0x5FbDB2315678afecb367f032d93F642f64180aa3).mintNft();
+        vm.stopBroadcast();
+    }
+
+    function convertSadToHappy() public {
+        vm.startBroadcast();
+        MoodNft(0x5FbDB2315678afecb367f032d93F642f64180aa3).flipMood(0);
         vm.stopBroadcast();
     }
 }
